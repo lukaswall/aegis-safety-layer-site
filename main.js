@@ -26,3 +26,6 @@ document.querySelectorAll('.card,.steer,.statement h2.big,.st,.safety h2').forEa
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');const b=e.target.querySelector&&e.target.querySelector('b[data-n]');if(b)cnt(b);io.unobserve(e.target)}}),{threshold:0,rootMargin:"0px 0px -5% 0px"});
 document.querySelectorAll('.fade').forEach(e=>io.observe(e));
 function cnt(b){const n=+b.dataset.n,t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);b.textContent=b.dataset.s+Math.round(n*e)+b.dataset.e;if(k<1)requestAnimationFrame(f)})(t0)}
+// fallback reveal on scroll (covers jump-scrolling and throttled observers)
+function chk(){document.querySelectorAll('.fade:not(.in)').forEach(e=>{if(e.getBoundingClientRect().top<innerHeight*.95){e.classList.add('in');const b=e.querySelector('b[data-n]');if(b)cnt(b)}})}
+addEventListener('scroll',chk,{passive:true});setInterval(chk,400);chk();
