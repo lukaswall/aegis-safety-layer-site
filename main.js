@@ -23,6 +23,6 @@ const nav=document.getElementById('nav');const onS=()=>nav.classList.toggle('sol
 const h=document.getElementById('scrub');const words=h.textContent.split(' ');h.innerHTML=words.map(w=>`<span>${w}</span>`).join(' ');const sp=[...h.children];
 function scrub(){const r=h.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.85-r.top)/(innerHeight*.5)));sp.forEach((s,i)=>s.classList.toggle('on',i/sp.length<p))}addEventListener('scroll',scrub);scrub();
 document.querySelectorAll('.card,.steer,.statement h2.big,.st,.safety h2').forEach(e=>e.classList.add('fade'));
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');const b=e.target.querySelector&&e.target.querySelector('b[data-n]');if(b)cnt(b);io.unobserve(e.target)}}),{threshold:.15});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');const b=e.target.querySelector&&e.target.querySelector('b[data-n]');if(b)cnt(b);io.unobserve(e.target)}}),{threshold:0,rootMargin:"0px 0px -5% 0px"});
 document.querySelectorAll('.fade').forEach(e=>io.observe(e));
 function cnt(b){const n=+b.dataset.n,t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);b.textContent=b.dataset.s+Math.round(n*e)+b.dataset.e;if(k<1)requestAnimationFrame(f)})(t0)}
